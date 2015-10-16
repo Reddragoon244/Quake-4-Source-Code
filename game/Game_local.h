@@ -62,6 +62,7 @@ class idProgram;
 class idThread;
 class idEditEntities;
 class idLocationEntity;
+class levelSystem;
 
 // RAVEN BEGIN
 // dluetscher: reduced max clients for memory usage

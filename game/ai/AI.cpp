@@ -27,6 +27,7 @@ const char* aiTalkMessageString [ ] = {
 
 static const float AI_SIGHTDELAYSCALE	= 5000.0f;			// Full sight delay at 5 seconds or more of not seeing enemy
 
+idPlayer level;
 
 /*
 ===============================================================================
@@ -3684,7 +3685,10 @@ void idAI::OnDeath( void ){
 
 	ExecScriptFunction( funcs.death );
 
-/* DONT DROP ANYTHING FOR NOW
+	level.ExpUp();
+
+
+
 	float rVal = gameLocal.random.RandomInt( 100 );
 
 	if( spawnArgs.GetFloat( "no_drops" ) >= 1.0 ){
@@ -3694,10 +3698,11 @@ void idAI::OnDeath( void ){
 		if( rVal < 25 ){	// Half of guys drop nothing?
 			spawnArgs.Set( "def_dropsItem1", "" );
 		}else if( rVal < 50 ){
-			spawnArgs.Set( "def_dropsItem1", "item_health_small" );
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_machinegun" );
+			
 		}
 	}
-*/
+
 }
 
 /*

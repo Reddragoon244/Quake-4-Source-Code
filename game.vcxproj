@@ -254,7 +254,6 @@
     <ClCompile Include="game\Target.cpp" />
     <ClCompile Include="game\TramGate.cpp" />
     <ClCompile Include="game\Trigger.cpp" />
-    <ClCompile Include="game\weapon\WeaponCrazyRocketLauncher.cpp" />
     <ClCompile Include="game\WorldSpawn.cpp" />
     <ClCompile Include="game\ai\AAS.cpp" />
     <ClCompile Include="game\ai\AAS_debug.cpp" />

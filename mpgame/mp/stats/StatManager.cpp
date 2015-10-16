@@ -439,7 +439,7 @@ void rvStatManager::WeaponFired( const idPlayer* player, int weapon, int num ) {
 		if ( cks == CKS_NONE ) {
 			comboKillState[ player->entityNumber ] = CKS_ROCKET_FIRED;
 		}
-	} else if ( player->GetWeaponIndex( "weapon_railgun" ) == weapon ) {
+	}else if ( player->GetWeaponIndex( "weapon_railgun" ) == weapon ) {
 		// apparently it processes hits before it does the fire....
 		if ( cks == CKS_RAIL_HIT ) {
 			comboKillState[ player->entityNumber ] = CKS_RAIL_FIRED;

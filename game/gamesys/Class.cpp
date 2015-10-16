@@ -1343,6 +1343,7 @@ void idClass::RegisterClasses( void )
 	REGISTER(rvMIRVProjectile); // ..\..\code\game\Projectile.cpp
 	REGISTER(rvModviewModel); // ..\..\code\game\GameEdit.cpp
 	REGISTER(rvPusher); // ..\..\code\game\Mover.cpp
+
 #ifndef _MPBETA
 	REGISTER(rvMonsterBerserker); // ..\..\code\game\ai\Monster_Berserker.cpp
 	REGISTER(rvMonsterBossBuddy); // ..\..\code\game\ai\Monster_BossBuddy.cpp	

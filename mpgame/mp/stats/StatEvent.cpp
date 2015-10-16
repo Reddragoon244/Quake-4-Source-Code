@@ -147,6 +147,7 @@ void rvStatKill::RegisterInGame( rvPlayerStat* stats ) {
 				statManager->GiveInGameAward( IGA_COMBO_KILL, playerClientNum );
 			}
 		}
+
 	}
 	
 	rvStatManager::comboKillState[ playerClientNum ] = CKS_NONE;

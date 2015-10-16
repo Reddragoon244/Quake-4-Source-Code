@@ -286,10 +286,13 @@ public:
 
 	class idPlayerView		playerView;			// handles damage kicks and effects
 
+
 	bool					alreadyDidTeamAnnouncerSound;
 	bool					noclip;
 	bool					godmode;
 	int						godmodeDamage;
+	int						myexp;
+	int						mylvl;
 	bool					undying;
 
 	bool					spawnAnglesSet;		// on first usercmd, we must set deltaAngles
@@ -433,6 +436,8 @@ public:
 
 	void					Spawn( void );
 	void					Think( void );
+	void					LevelUp( void );
+	void					ExpUp( void );
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file

@@ -637,6 +637,8 @@ bool idItem::Pickup( idPlayer *player ) {
 	if ( gameLocal.isMultiplayer && !dropped && spawnArgs.FindKey( "weaponclass" ) 
 		&& gameLocal.IsWeaponsStayOn() && gameLocal.time > player->lastPickupTime + 1000 ) {
 		
+			common->Printf("%s", spawnArgs.GetString("weaponclass"));
+
 		idDict attr;
 		GetAttributes( attr );
 		const idKeyValue* arg = attr.FindKey( "weapon" );

@@ -14074,4 +14074,27 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 	return weaponNum;
 }
 
+void idPlayer::LevelUp()
+{
+
+  const int required_experience[] =
+  {
+    50, 100, 150, 220, 290, 380, 495, 610, 745, 99999999
+  };
+
+  while(myexp >= required_experience[mylvl])
+	  ++mylvl;
+
+	common->Printf("\nMy Level is: %d" ,mylvl);
+	common->Printf("\nMy Exp is: %d / %d" ,myexp, required_experience[mylvl+1]);
+}
+
+void idPlayer::ExpUp()
+{
+
+	myexp += 20;
+	LevelUp();
+
+}
+
 // RITUAL END

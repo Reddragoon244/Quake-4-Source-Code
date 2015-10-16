@@ -1427,6 +1427,7 @@ void idEntity::UpdateRenderEntityCallback() {
 }
 // RAVEN END
 
+
 /*
 ================
 idEntity::UpdateVisuals

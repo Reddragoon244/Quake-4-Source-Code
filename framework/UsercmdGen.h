@@ -122,6 +122,7 @@ const int IMPULSE_124			= 124;			// Buy team powerup: health_regen
 const int IMPULSE_125			= 125;			// Buy team powerup: damage_boost
 const int IMPULSE_126			= 126;			// UNUSED
 const int IMPULSE_127			= 127;			// UNUSED
+const int IMPULSE_128			= 128;			// Buy weapon_crazyrocketlauncher
 // RITUAL END
 
 
