@@ -293,6 +293,7 @@ public:
 	int						godmodeDamage;
 	int						myexp;
 	int						mylvl;
+	bool					checkSystem[8];
 	bool					undying;
 
 	bool					spawnAnglesSet;		// on first usercmd, we must set deltaAngles
@@ -436,8 +437,11 @@ public:
 
 	void					Spawn( void );
 	void					Think( void );
+	//Red
 	void					LevelUp( void );
 	void					ExpUp( void );
+	void					Talents(void);
+	//Red
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file

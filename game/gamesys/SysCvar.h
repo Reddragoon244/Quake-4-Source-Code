@@ -302,6 +302,12 @@ extern idCVar	g_brassTime;
 extern idCVar	g_gun_x;
 extern idCVar	g_gun_y;
 extern idCVar	g_gun_z;
+extern idCVar   talent1bool;
+extern idCVar   talent5bool;
+extern idCVar   talent10bool;
+extern idCVar   demolition;
+extern idCVar   brawler;
+extern idCVar   sharpshooter;
 // RAVEN BEGIN
 // bdube: cvar for messing with foreshortening
 extern idCVar	g_gun_pitch;

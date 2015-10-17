@@ -643,6 +643,7 @@ void idAI::Spawn( void ) {
 	pain.takenThisFrame	= 0;		
 	
 	// Initialize combat variables
+	combat.health                   = ((float)level.mylvl * 20.0) + spawnArgs.GetFloat("health"); //Increase the Health dependent on mylvl
  	combat.fl.aware					= spawnArgs.GetBool ( "ambush", "0" );
  	combat.fl.tetherNoBreak			= spawnArgs.GetBool ( "tetherNoBreak", "0" );
  	combat.fl.noChatter				= spawnArgs.GetBool ( "noCombatChatter" );
@@ -3685,20 +3686,35 @@ void idAI::OnDeath( void ){
 
 	ExecScriptFunction( funcs.death );
 
-	level.ExpUp();
+	level.ExpUp(); //Leveling System call for experience game
 
 
 
-	float rVal = gameLocal.random.RandomInt( 100 );
+	float rVal = gameLocal.random.RandomInt( 100 );//random number generator
 
-	if( spawnArgs.GetFloat( "no_drops" ) >= 1.0 ){
+	if( spawnArgs.GetFloat( "no_drops" ) >= 1.0 ){ //if the enemy has tag no_drop then drop nothing
 		spawnArgs.Set( "def_dropsItem1", "" );
-	}else{
-		// Fixme!  Better guys should drop better stuffs!  Make drops related to guy type?  Do something cooler here?
-		if( rVal < 25 ){	// Half of guys drop nothing?
+	}else{//else the enemy drops from a random number
+
+		if(rVal < 50 && level.checkSystem[0] == true)
+		{
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_health_small" );
+			common->Printf("\nDROP DOESN'T WORK");
+		}
+		
+		if( rVal < 35 ){	//less then 25 drop nothing
 			spawnArgs.Set( "def_dropsItem1", "" );
-		}else if( rVal < 50 ){
+		}else if( rVal < 45 ){ //less then 50 drop item
 			spawnArgs.Set( "def_dropsItem1", "moveable_item_machinegun" );
+			
+		}else if( rVal < 51 && rVal > 44){ //less then 90 drop item
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_railshotty" );
+			
+		}else if( rVal < 50 && rVal > 60){ //less then 50 drop item
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_rocketlauncher" );
+			
+		}else if( rVal < 90 && rVal > 80){ //less then 90 drop item
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_hyperblaster" );
 			
 		}
 	}

@@ -464,6 +464,12 @@ idCVar g_brassTime(					"g_brassTime",				"1",			CVAR_GAME | PC_CVAR_ARCHIVE | C
 idCVar g_gun_x(						"g_gunX",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_gun_y(						"g_gunY",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_gun_z(						"g_gunZ",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar talent1bool(					"talent1bool",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar talent5bool(					"talent5bool",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar talent10bool(				"talent10bool",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar demolition(					"demolition",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar brawler(						"brawler",					"0",			CVAR_GAME | CVAR_FLOAT, "" );
+idCVar sharpshooter(				"sharpshooter",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_viewNodalX(				"g_viewNodalX",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
 idCVar g_viewNodalZ(				"g_viewNodalZ",				"0",			CVAR_GAME | CVAR_FLOAT, "" );
 // RAVEN BEGIN

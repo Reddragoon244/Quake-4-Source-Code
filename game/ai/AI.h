@@ -151,6 +151,7 @@ typedef struct rvAICombat_s{
  	float					visRange;					// Maximum distance to check enemy visibility
  	float					earRange;					// Maximum distance to check hearing an enemy from
  	float					awareRange;					// Distance to become automatically aware of an enemy
+	float					health;						//Change of health for enemies
 	
 	int						tacticalMaskAvailable;		// Currently available tactical states
 	int						tacticalMaskUpdate;			// states currently being evaluated

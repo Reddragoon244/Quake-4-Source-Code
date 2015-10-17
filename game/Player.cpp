@@ -31,6 +31,7 @@
 idCVar net_predictionErrorDecay( "net_predictionErrorDecay", "112", CVAR_FLOAT | CVAR_GAME | CVAR_NOCHEAT, "time in milliseconds it takes to fade away prediction errors", 0.0f, 200.0f );
 idCVar net_showPredictionError( "net_showPredictionError", "-1", CVAR_INTEGER | CVAR_GAME | CVAR_NOCHEAT, "show prediction errors for the given client", -1, MAX_CLIENTS );
 
+bool Talentbool[8];
 
 /*
 ===============================================================================
@@ -8180,6 +8181,7 @@ int GetItemBuyImpulse( const char* itemName )
 		//									IMPULSE_115 - Unused
 		//									IMPULSE_116 - Unused
 		//									IMPULSE_117 - Unused
+		{ "weapon_railshotty",				IMPULSE_117, },
 		{ "item_armor_small",				IMPULSE_118, },
 		{ "item_armor_large",				IMPULSE_119, },
 		{ "ammorefill",						IMPULSE_120, },
@@ -8584,7 +8586,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_114:	break; // Unused
 		case IMPULSE_115:	break; // Unused
 		case IMPULSE_116:	break; // Unused
-		case IMPULSE_117:	break; // Unused
+		case IMPULSE_117:	AttemptToBuyItem( "weapon_railshotty" );            break;
 		case IMPULSE_118:	AttemptToBuyItem( "item_armor_small" );				break;
 		case IMPULSE_119:	AttemptToBuyItem( "item_armor_large" );				break;
 		case IMPULSE_120:	AttemptToBuyItem( "ammorefill" );					break;
@@ -14074,26 +14076,114 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 	return weaponNum;
 }
 
-void idPlayer::LevelUp()
+/*
+===============
+idPlayer::LevelingSystem              Red
+===============
+*/
+
+void idPlayer::LevelUp()//Leveling System
 {
 
   const int required_experience[] =
   {
-    50, 100, 150, 220, 290, 380, 495, 610, 745, 99999999
+    50, 100, 150, 220, 290, 380, 495, 610, 745, 950, 1200, 1450, 1680, 1910, 2210, 99999999//change for different experience caps for levels
   };
 
-  while(myexp >= required_experience[mylvl])
+  while(myexp >= required_experience[mylvl])//if exp hits the cap up the level
 	  ++mylvl;
 
 	common->Printf("\nMy Level is: %d" ,mylvl);
 	common->Printf("\nMy Exp is: %d / %d" ,myexp, required_experience[mylvl+1]);
+	common->Printf("\nTalent Bool is %f", talent1bool.GetFloat());//communicate with guis // consoleCMD "talent1bool 1"; //
+	common->Printf("\nTalent Bool is %f", talent5bool.GetFloat());//communicate with guis // consoleCMD "talent5bool 1"; //
+	common->Printf("\nTalent Bool is %f", talent10bool.GetFloat());//communicate with guis // consoleCMD "talent10bool 1"; //
+	common->Printf("\nCheck Bool is %f", checkSystem[0]);//communicate with guis // checkSystem[0] //
 }
 
-void idPlayer::ExpUp()
+void idPlayer::ExpUp()//function for experience gain
 {
 
-	myexp += 20;
+	myexp += 30; //experience gained
 	LevelUp();
+	Talents();
+
+}
+
+void idPlayer::Talents()//function for talent system
+{
+
+	///////////Demolition/////////////
+
+if(demolition.GetFloat() == 1 && (brawler.GetFloat() != 1 && sharpshooter.GetFloat() != 1))
+{
+	if(talent1bool.GetFloat() == 1 && Talentbool[0] != true && mylvl == 1)//first talent for demolition tree
+	{
+		checkSystem[0] = true;
+		common->Printf("\nTalent 1 Demolition Activated");
+		Talentbool[0] = true;
+	}
+	else if(talent5bool.GetFloat() == 1 && Talentbool[1] != true && mylvl == 5)//level 5 talents for demolition tree
+	{
+		checkSystem[1] = true;
+		common->Printf("\nTalent 5 Demolition Activated");
+		Talentbool[1] = true;
+	}
+	else if(talent10bool.GetFloat() == 1 && Talentbool[2] != true && mylvl == 10)//level 5 talents for demolition tree
+	{
+		checkSystem[2] = true;
+		common->Printf("\nTalent 10 Demolition Activated");
+		Talentbool[2] = true;
+	}
+}
+
+	///////////Brawler///////////////
+
+if(brawler.GetFloat() == 1 && (demolition.GetFloat() != 1 && sharpshooter.GetFloat() != 1))
+{
+	if(talent1bool.GetFloat() == 1 && Talentbool[3] != true && mylvl == 1)//first talent for brawler tree
+	{
+		checkSystem[3] = true;
+		common->Printf("\nTalent 1 Brawler Activated");
+		Talentbool[3] = true;
+	}
+	else if(talent5bool.GetFloat() == 1 && Talentbool[4] != true && mylvl == 5)//level 5 talents for brawler tree
+	{
+		checkSystem[4] = true;
+		common->Printf("\nTalent 5 Brawler Activated");
+		Talentbool[4] = true;
+	}
+	else if(talent10bool.GetFloat() == 1 && Talentbool[5] != true && mylvl == 10)//level 5 talents for brawler tree
+	{
+		checkSystem[5] = true;
+		common->Printf("\nTalent 10 Brawler Activated");
+		Talentbool[5] = true;
+	}
+}
+
+	/////////Sharpshooter////////////
+
+if(sharpshooter.GetFloat() == 1 && (brawler.GetFloat() != 1 && demolition.GetFloat() != 1))
+{
+	if(talent1bool.GetFloat() == 1 && Talentbool[6] != true && mylvl == 1)//first talent for sharpshooter tree
+	{
+		checkSystem[6] = true;
+		common->Printf("\nTalent 1 Sharpshooter Activated");
+		Talentbool[6] = true;
+	}
+	else if(talent5bool.GetFloat() == 1 && Talentbool[7] != true && mylvl == 5)//level 5 talents for sharpshooter tree
+	{
+		checkSystem[7] = true;
+		common->Printf("\nTalent 5 Sharpshooter Activated");
+		Talentbool[7] = true;
+	}
+	else if(talent10bool.GetFloat() == 1 && Talentbool[8] != true && mylvl == 10)//level 5 talents for sharpshooter tree
+	{
+		checkSystem[8] = true;
+		common->Printf("\nTalent 10 Sharpshooter Activated");
+		Talentbool[8] = true;
+	}
+}
 
 }
 

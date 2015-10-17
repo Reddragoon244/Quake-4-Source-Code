@@ -2,6 +2,7 @@
 #pragma hdrstop
 
 #include "Game_local.h"
+#include "Player.h"
 
 // RAVEN BEGIN
 // bdube: client effects
