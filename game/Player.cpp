@@ -14095,10 +14095,6 @@ void idPlayer::LevelUp()//Leveling System
 
 	common->Printf("\nMy Level is: %d" ,mylvl);
 	common->Printf("\nMy Exp is: %d / %d" ,myexp, required_experience[mylvl+1]);
-	common->Printf("\nTalent Bool is %f", talent1bool.GetFloat());//communicate with guis // consoleCMD "talent1bool 1"; //
-	common->Printf("\nTalent Bool is %f", talent5bool.GetFloat());//communicate with guis // consoleCMD "talent5bool 1"; //
-	common->Printf("\nTalent Bool is %f", talent10bool.GetFloat());//communicate with guis // consoleCMD "talent10bool 1"; //
-	common->Printf("\nCheck Bool is %f", checkSystem[0]);//communicate with guis // checkSystem[0] //
 }
 
 void idPlayer::ExpUp()//function for experience gain

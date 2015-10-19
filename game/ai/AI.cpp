@@ -643,7 +643,7 @@ void idAI::Spawn( void ) {
 	pain.takenThisFrame	= 0;		
 	
 	// Initialize combat variables
-	combat.health                   = ((float)level.mylvl * 20.0) + spawnArgs.GetFloat("health"); //Increase the Health dependent on mylvl
+	combat.health                   = spawnArgs.GetFloat("health");
  	combat.fl.aware					= spawnArgs.GetBool ( "ambush", "0" );
  	combat.fl.tetherNoBreak			= spawnArgs.GetBool ( "tetherNoBreak", "0" );
  	combat.fl.noChatter				= spawnArgs.GetBool ( "noCombatChatter" );
@@ -791,6 +791,8 @@ void idAI::Spawn( void ) {
 		// play a looping ambient sound if we have one
 		StartSound( "snd_ambient", SND_CHANNEL_AMBIENT, 0, false, NULL );
 	}
+
+	health += ((float)level.mylvl * 20);// Reddragoon // health increases with each lvl
 
 	if ( health <= 0 ) {
 		gameLocal.Warning( "entity '%s' doesn't have health set", name.c_str() );
@@ -3695,15 +3697,15 @@ void idAI::OnDeath( void ){
 	if( spawnArgs.GetFloat( "no_drops" ) >= 1.0 ){ //if the enemy has tag no_drop then drop nothing
 		spawnArgs.Set( "def_dropsItem1", "" );
 	}else{//else the enemy drops from a random number
-
-		if(rVal < 50 && level.checkSystem[0] == true)
-		{
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_health_small" );
-			common->Printf("\nDROP DOESN'T WORK");
-		}
 		
 		if( rVal < 35 ){	//less then 25 drop nothing
 			spawnArgs.Set( "def_dropsItem1", "" );
+
+			if(level.checkSystem[0] == true)//Level 1 Demolition Talent
+				spawnArgs.Set( "def_dropsItem1", "item_armor_small" );
+
+			if(level.checkSystem[3] == true)//Level 1 Brawler Talent
+				spawnArgs.Set( "def_dropsItem1", "item_health_small" );
 		}else if( rVal < 45 ){ //less then 50 drop item
 			spawnArgs.Set( "def_dropsItem1", "moveable_item_machinegun" );
 			
@@ -3716,6 +3718,8 @@ void idAI::OnDeath( void ){
 		}else if( rVal < 90 && rVal > 80){ //less then 90 drop item
 			spawnArgs.Set( "def_dropsItem1", "moveable_item_hyperblaster" );
 			
+		}else if(rVal < 100 && rVal > 90){
+			spawnArgs.Set( "def_dropsItem1", "moveable_item_shotgun" );
 		}
 	}
 

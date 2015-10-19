@@ -210,6 +210,8 @@ CLASS_DECLARATION( idActor, idAI )
 	// RAVEN END
 END_CLASS
 
+idPlayer healthgain;
+
 /*
 =====================
 idAI::Event_PredictEnemyPos
