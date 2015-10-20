@@ -193,6 +193,7 @@ typedef enum {
 const int	ASYNC_PLAYER_TOURNEY_STATUS_BITS = idMath::BitsForInteger( PTS_NUM_STATES );
 
 class idInventory {
+
 public:
 	int						maxHealth;
 	int						weapons;
@@ -293,7 +294,7 @@ public:
 	int						godmodeDamage;
 	int						myexp;
 	int						mylvl;
-	bool					checkSystem[8];
+	bool				    checkSystem[8];
 	bool					undying;
 
 	bool					spawnAnglesSet;		// on first usercmd, we must set deltaAngles

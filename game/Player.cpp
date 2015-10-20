@@ -32,6 +32,7 @@ idCVar net_predictionErrorDecay( "net_predictionErrorDecay", "112", CVAR_FLOAT |
 idCVar net_showPredictionError( "net_showPredictionError", "-1", CVAR_INTEGER | CVAR_GAME | CVAR_NOCHEAT, "show prediction errors for the given client", -1, MAX_CLIENTS );
 
 bool Talentbool[8];
+idPlayer inventoryTalent;
 
 /*
 ===============================================================================
@@ -673,7 +674,7 @@ bool idInventory::DetermineAmmoAvailability( idPlayer* owner, const char *ammoNa
 		return false;
 	}
 
-	clipSize = weaponDict->GetInt( "clipSize", "0" );
+		clipSize = weaponDict->GetInt( "clipSize", "0" );
 
 	// Find the weaponmods for this weapon and see if we have any clipsize mods.
 	for ( int m = 0; m < MAX_WEAPONMODS; m ++ ) {		
@@ -9642,6 +9643,8 @@ void idPlayer::Think( void ) {
 		inBuyZone = false;
 
 	inBuyZonePrev = false;
+
+	Talents();//Reddragoon
 }
 
 /*
@@ -9964,7 +9967,10 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 	float	pDmgScale;
 
 	damageDef->GetInt( "damage", "20", damage );
-	damage = GetDamageForLocation( damage, location );
+	if((checkSystem[1] == true || checkSystem[4] == true) && sharpshooter.GetFloat() != 1)
+		damage = GetDamageForLocation( damage, location );// Damage on player // Reddragoon Demolition and Brawler Level 5 talent
+	else
+		damage = ((float)mylvl * 20) + GetDamageForLocation( damage, location );// Damage on player // Reddragoon
 
 	// optional different damage in team games
 	if( gameLocal.isMultiplayer && gameLocal.IsTeamGame() && damageDef->GetInt( "damage_team" ) ) {
@@ -10072,7 +10078,7 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 	
 	if ( !gameLocal.isMultiplayer ) {
 		if ( inflictor != gameLocal.world ) {
-			modifiedDamageScale *= ( 1.0f + gameLocal.GetDifficultyModifier() );
+			modifiedDamageScale *= ( 1.0f + gameLocal.GetDifficultyModifier() );//Enemies take less damage with each level
 		}
 	}
 	// RAVEN END
@@ -14078,7 +14084,7 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 
 /*
 ===============
-idPlayer::LevelingSystem              Red
+idPlayer::LevelingSystem              Reddragoon
 ===============
 */
 
@@ -14087,7 +14093,7 @@ void idPlayer::LevelUp()//Leveling System
 
   const int required_experience[] =
   {
-    50, 100, 150, 220, 290, 380, 495, 610, 745, 950, 1200, 1450, 1680, 1910, 2210, 99999999//change for different experience caps for levels
+    0, 50, 100, 150, 220, 290, 380, 495, 610, 745, 950, 1200, 1450, 1680, 1910, 2210, 99999999//change for different experience caps for levels
   };
 
   while(myexp >= required_experience[mylvl])//if exp hits the cap up the level
@@ -14113,19 +14119,19 @@ void idPlayer::Talents()//function for talent system
 
 if(demolition.GetFloat() == 1 && (brawler.GetFloat() != 1 && sharpshooter.GetFloat() != 1))
 {
-	if(talent1bool.GetFloat() == 1 && Talentbool[0] != true && mylvl == 1)//first talent for demolition tree
+	if(talent1bool.GetFloat() == 1 && Talentbool[0] != true && mylvl >= 1)//first talent for demolition tree
 	{
 		checkSystem[0] = true;
 		common->Printf("\nTalent 1 Demolition Activated");
 		Talentbool[0] = true;
 	}
-	else if(talent5bool.GetFloat() == 1 && Talentbool[1] != true && mylvl == 5)//level 5 talents for demolition tree
+	else if(talent5bool.GetFloat() == 1 && Talentbool[1] != true && mylvl >= 5)//level 5 talents for demolition tree
 	{
 		checkSystem[1] = true;
 		common->Printf("\nTalent 5 Demolition Activated");
 		Talentbool[1] = true;
 	}
-	else if(talent10bool.GetFloat() == 1 && Talentbool[2] != true && mylvl == 10)//level 5 talents for demolition tree
+	else if(talent10bool.GetFloat() == 1 && Talentbool[2] != true && mylvl >= 10)//level 10 talents for demolition tree
 	{
 		checkSystem[2] = true;
 		common->Printf("\nTalent 10 Demolition Activated");
@@ -14137,19 +14143,19 @@ if(demolition.GetFloat() == 1 && (brawler.GetFloat() != 1 && sharpshooter.GetFlo
 
 if(brawler.GetFloat() == 1 && (demolition.GetFloat() != 1 && sharpshooter.GetFloat() != 1))
 {
-	if(talent1bool.GetFloat() == 1 && Talentbool[3] != true && mylvl == 1)//first talent for brawler tree
-	{
+	if(talent1bool.GetFloat() == 1 && Talentbool[3] != true && mylvl >= 1)//first talent for brawler tree
+	{	
 		checkSystem[3] = true;
 		common->Printf("\nTalent 1 Brawler Activated");
 		Talentbool[3] = true;
 	}
-	else if(talent5bool.GetFloat() == 1 && Talentbool[4] != true && mylvl == 5)//level 5 talents for brawler tree
+	else if(talent5bool.GetFloat() == 1 && Talentbool[4] != true && mylvl >= 5)//level 5 talents for brawler tree
 	{
 		checkSystem[4] = true;
 		common->Printf("\nTalent 5 Brawler Activated");
 		Talentbool[4] = true;
 	}
-	else if(talent10bool.GetFloat() == 1 && Talentbool[5] != true && mylvl == 10)//level 5 talents for brawler tree
+	else if(talent10bool.GetFloat() == 1 && Talentbool[5] != true && mylvl >= 10)//level 10 talents for brawler tree
 	{
 		checkSystem[5] = true;
 		common->Printf("\nTalent 10 Brawler Activated");
@@ -14161,19 +14167,19 @@ if(brawler.GetFloat() == 1 && (demolition.GetFloat() != 1 && sharpshooter.GetFlo
 
 if(sharpshooter.GetFloat() == 1 && (brawler.GetFloat() != 1 && demolition.GetFloat() != 1))
 {
-	if(talent1bool.GetFloat() == 1 && Talentbool[6] != true && mylvl == 1)//first talent for sharpshooter tree
+	if(talent1bool.GetFloat() == 1 && Talentbool[6] != true && mylvl >= 1)//first talent for sharpshooter tree
 	{
 		checkSystem[6] = true;
 		common->Printf("\nTalent 1 Sharpshooter Activated");
 		Talentbool[6] = true;
 	}
-	else if(talent5bool.GetFloat() == 1 && Talentbool[7] != true && mylvl == 5)//level 5 talents for sharpshooter tree
+	else if(talent5bool.GetFloat() == 1 && Talentbool[7] != true && mylvl >= 5)//level 5 talents for sharpshooter tree
 	{
 		checkSystem[7] = true;
 		common->Printf("\nTalent 5 Sharpshooter Activated");
 		Talentbool[7] = true;
 	}
-	else if(talent10bool.GetFloat() == 1 && Talentbool[8] != true && mylvl == 10)//level 5 talents for sharpshooter tree
+	else if(talent10bool.GetFloat() == 1 && Talentbool[8] != true && mylvl >= 10)//level 10 talents for sharpshooter tree
 	{
 		checkSystem[8] = true;
 		common->Printf("\nTalent 10 Sharpshooter Activated");

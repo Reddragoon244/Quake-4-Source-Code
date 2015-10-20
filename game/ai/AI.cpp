@@ -29,6 +29,7 @@ static const float AI_SIGHTDELAYSCALE	= 5000.0f;			// Full sight delay at 5 seco
 
 idPlayer level;
 
+
 /*
 ===============================================================================
 
@@ -791,8 +792,6 @@ void idAI::Spawn( void ) {
 		// play a looping ambient sound if we have one
 		StartSound( "snd_ambient", SND_CHANNEL_AMBIENT, 0, false, NULL );
 	}
-
-	health += ((float)level.mylvl * 20);// Reddragoon // health increases with each lvl
 
 	if ( health <= 0 ) {
 		gameLocal.Warning( "entity '%s' doesn't have health set", name.c_str() );
@@ -3688,9 +3687,9 @@ void idAI::OnDeath( void ){
 
 	ExecScriptFunction( funcs.death );
 
-	level.ExpUp(); //Leveling System call for experience game
-
-
+	level.ExpUp(); // Reddragoon // Leveling System call for experience game
+	
+	
 
 	float rVal = gameLocal.random.RandomInt( 100 );//random number generator
 
@@ -3698,28 +3697,63 @@ void idAI::OnDeath( void ){
 		spawnArgs.Set( "def_dropsItem1", "" );
 	}else{//else the enemy drops from a random number
 		
-		if( rVal < 35 ){	//less then 25 drop nothing
+		if( rVal < 35 ){	//drop nothing til talent one is chosen
 			spawnArgs.Set( "def_dropsItem1", "" );
 
 			if(level.checkSystem[0] == true)//Level 1 Demolition Talent
-				spawnArgs.Set( "def_dropsItem1", "item_armor_small" );
+				spawnArgs.Set( "def_dropsItem1", "item_armor_shard" );
 
 			if(level.checkSystem[3] == true)//Level 1 Brawler Talent
 				spawnArgs.Set( "def_dropsItem1", "item_health_small" );
-		}else if( rVal < 45 ){ //less then 50 drop item
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_machinegun" );
+
+			if(level.checkSystem[6] == true)//Level 1 SharpShooter Talent
+				spawnArgs.Set( "def_dropItem1", "ammo_railgun" );
+
+			if(level.checkSystem[5] == true)//Level 10 Brawler Talent
+				spawnArgs.Set( "def_dropsItem1", "item_health_mega" );
+
+			if(level.checkSystem[2] == true)//Level 10 Demolition Talent
+				spawnArgs.Set( "def_dropsItem1", "item_armor_small" );
+
+		}else if( rVal < 39 ){ //less then 45 drop item
+			
+			 spawnArgs.Set( "def_dropsItem1", "item_health_mega" );
+			
+		}else if( rVal < 45 ){ //less then 45 drop item
+			
+			if(sharpshooter.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_lightninggun" );
+
+			if(demolition.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_machinegun" );//Rocket Machine Gun 
 			
 		}else if( rVal < 51 && rVal > 44){ //less then 90 drop item
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_railshotty" );
+
+			if(sharpshooter.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_railshotty" );//Rail Shotty
 			
 		}else if( rVal < 50 && rVal > 60){ //less then 50 drop item
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_rocketlauncher" );
+			
+			if(demolition.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_rocketlauncher" );//bouncing rockets
+			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_napalmblaster" );
+			
 			
 		}else if( rVal < 90 && rVal > 80){ //less then 90 drop item
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_hyperblaster" );
+			
+			if(brawler.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_hyperblaster" );//Dark Blaster
+
+			if(demolition.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1" , "moveable_item_grenadelauncher" );//Gravity Launcher
 			
 		}else if(rVal < 100 && rVal > 90){
-			spawnArgs.Set( "def_dropsItem1", "moveable_item_shotgun" );
+			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_ultimatebrawlerweapon" );
+			
+			if(sharpshooter.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1" , "moveable_item_railgun" );// Ultimate SharpShooter Weapon
+
+			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_ultimatedemolitionweapon" );
 		}
 	}
 

@@ -15,6 +15,8 @@
 #include "client/ClientEffect.h"
 //#include "../renderer/tr_local.h"
 
+idPlayer weaponTalent;
+
 /***********************************************************************
 
   rvViewWeapon  
@@ -653,6 +655,7 @@ void rvWeapon::Spawn ( void ) {
  	muzzleOffset		= weaponDef->dict.GetFloat ( "muzzleOffset", "14" );
 
 	// Ammo
+
 	clipSize			= spawnArgs.GetInt( "clipSize" );
 	ammoRequired		= spawnArgs.GetInt( "ammoRequired" );
 	lowAmmo				= spawnArgs.GetInt( "lowAmmo" );
