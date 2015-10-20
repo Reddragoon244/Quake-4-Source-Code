@@ -32,6 +32,7 @@ idCVar net_predictionErrorDecay( "net_predictionErrorDecay", "112", CVAR_FLOAT |
 idCVar net_showPredictionError( "net_showPredictionError", "-1", CVAR_INTEGER | CVAR_GAME | CVAR_NOCHEAT, "show prediction errors for the given client", -1, MAX_CLIENTS );
 
 bool Talentbool[8];
+bool checkIf[8];
 idPlayer inventoryTalent;
 
 /*
@@ -9644,7 +9645,32 @@ void idPlayer::Think( void ) {
 
 	inBuyZonePrev = false;
 
-	Talents();//Reddragoon
+	/*
+
+	Reddragoon
+
+	*/
+	if(Talentbool[8] == true && checkIf[0] != true){//Talent 10 SharpShooter
+	
+		GiveItem("weapon_railgun");//Ultimate Sharpshooter Weapon
+		checkIf[0] = true;
+
+	}
+
+	if(Talentbool[2] == true && checkIf[1] != true){//Talent 10 Demolition
+	
+		spawnArgs.Set( "def_dropsItem1" , "moveable_item_nailgun" );//Ultimate Demolition Weapon
+		checkIf[1] = true;
+
+	}
+
+		if(Talentbool[5] == true && checkIf[2] != true){//Talent 10 Brawler
+	
+		spawnArgs.Set( "def_dropsItem1" , "moveable_item_hyperblaster" );//Ultimate Brawler Weapon
+		checkIf[2] = true;
+
+	}
+	
 }
 
 /*

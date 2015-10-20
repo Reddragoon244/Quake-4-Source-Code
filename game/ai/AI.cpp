@@ -3736,24 +3736,18 @@ void idAI::OnDeath( void ){
 			
 			if(demolition.GetFloat() == 1)
 				spawnArgs.Set( "def_dropsItem1", "moveable_item_rocketlauncher" );//bouncing rockets
-			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_napalmblaster" );
-			
 			
 		}else if( rVal < 90 && rVal > 80){ //less then 90 drop item
 			
 			if(brawler.GetFloat() == 1)
-				spawnArgs.Set( "def_dropsItem1", "moveable_item_hyperblaster" );//Dark Blaster
+				spawnArgs.Set( "def_dropsItem1", "moveable_item_grenadelauncher" );//Nail Gun Unlimited
 
-			if(demolition.GetFloat() == 1)
-				spawnArgs.Set( "def_dropsItem1" , "moveable_item_grenadelauncher" );//Gravity Launcher
 			
 		}else if(rVal < 100 && rVal > 90){
-			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_ultimatebrawlerweapon" );
-			
-			if(sharpshooter.GetFloat() == 1)
-				spawnArgs.Set( "def_dropsItem1" , "moveable_item_railgun" );// Ultimate SharpShooter Weapon
 
-			//spawnArgs.Set( "def_dropsItem1" , "moveable_item_ultimatedemolitionweapon" );
+			if(demolition.GetFloat() == 1)
+				spawnArgs.Set( "def_dropsItem1" , "moveable_item_napalmblaster" );
+			
 		}
 	}
 
