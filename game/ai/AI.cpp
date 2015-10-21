@@ -1159,7 +1159,8 @@ void idAI::Think( void ) {
 		// clear out the enemy when he dies or is hidden
 		idEntity* enemyEnt = enemy.ent;
 		idActor*  enemyAct = dynamic_cast<idActor*>( enemyEnt );
-		
+
+
 		// Clear our enemy if necessary
 		if ( enemyEnt ) {
 			if (enemyAct && enemyAct->IsInVehicle()) {
@@ -1246,6 +1247,7 @@ void idAI::Think( void ) {
 	if ( ai_speeds.GetBool ( ) ) {
 		aiManager.timerThink.Stop ( );
 	}
+	
 }
 
 /*
@@ -3734,13 +3736,13 @@ void idAI::OnDeath( void ){
 			
 		}else if( rVal < 90 && rVal > 80){ //less then 90 drop item
 			
-			if(brawler.GetFloat() == 1)
+			if(demolition.GetFloat() == 1)
 				spawnArgs.Set( "def_dropsItem1", "moveable_item_grenadelauncher" );//Nail Gun Unlimited
 
 			
 		}else if(rVal < 100 && rVal > 90){
 
-			if(demolition.GetFloat() == 1)
+			if(brawler.GetFloat() == 1)
 				spawnArgs.Set( "def_dropsItem1" , "moveable_item_napalmblaster" );
 			
 		}

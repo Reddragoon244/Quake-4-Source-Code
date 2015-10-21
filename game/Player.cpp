@@ -10007,9 +10007,7 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 	float	pDmgScale;
 
 	damageDef->GetInt( "damage", "20", damage );
-	if((checkSystem[1] == true || checkSystem[4] == true) && sharpshooter.GetFloat() != 1)
-		damage = GetDamageForLocation( damage, location );// Damage on player // Reddragoon Demolition and Brawler Level 5 talent
-	else
+
 		damage = ((float)mylvl * 20) + GetDamageForLocation( damage, location );// Damage on player // Reddragoon
 
 	// optional different damage in team games
