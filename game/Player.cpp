@@ -33,6 +33,7 @@ idCVar net_showPredictionError( "net_showPredictionError", "-1", CVAR_INTEGER | 
 
 bool Talentbool[8];
 bool checkIf[8];
+bool onKill;
 idPlayer inventoryTalent;
 
 /*
@@ -9650,23 +9651,36 @@ void idPlayer::Think( void ) {
 	Reddragoon
 
 	*/
-	if(Talentbool[8] == true && checkIf[0] != true){//Talent 10 SharpShooter
-	
+
+	if(onKill == true && Talentbool[6] == true)//Level 1 Sharpshooter Talent
+	{
 		GiveItem("weapon_railgun");//Ultimate Sharpshooter Weapon
+		onKill = false;
+	}
+
+	if(Talentbool[7] == true && checkIf[0] != true){//Talent 5 SharpShooter
+	
+		GiveItem("ammo_railgun");
 		checkIf[0] = true;
 
 	}
 
+	if(Talentbool[4] == true && checkIf[4] != true)//Talent 5 Brawler
+	{
+		health = 200;
+		checkIf[4] = true;
+	}
+
 	if(Talentbool[2] == true && checkIf[1] != true){//Talent 10 Demolition
 	
-		spawnArgs.Set( "def_dropsItem1" , "moveable_item_nailgun" );//Ultimate Demolition Weapon
+		GiveItem( "moveable_item_nailgun" );//Ultimate Demolition Weapon
 		checkIf[1] = true;
 
 	}
 
 		if(Talentbool[5] == true && checkIf[2] != true){//Talent 10 Brawler
 	
-		spawnArgs.Set( "def_dropsItem1" , "moveable_item_hyperblaster" );//Ultimate Brawler Weapon
+		GiveItem( "moveable_item_hyperblaster" );//Ultimate Brawler Weapon
 		checkIf[2] = true;
 
 	}
@@ -14135,6 +14149,7 @@ void idPlayer::ExpUp()//function for experience gain
 	myexp += 30; //experience gained
 	LevelUp();
 	Talents();
+	onKill = true;
 
 }
 

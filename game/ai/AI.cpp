@@ -3688,8 +3688,6 @@ void idAI::OnDeath( void ){
 	ExecScriptFunction( funcs.death );
 
 	level.ExpUp(); // Reddragoon // Leveling System call for experience game
-	
-	
 
 	float rVal = gameLocal.random.RandomInt( 100 );//random number generator
 
@@ -3705,14 +3703,11 @@ void idAI::OnDeath( void ){
 
 			if(level.checkSystem[3] == true)//Level 1 Brawler Talent
 				spawnArgs.Set( "def_dropsItem1", "item_health_small" );
-
-			if(level.checkSystem[6] == true)//Level 1 SharpShooter Talent
-				spawnArgs.Set( "def_dropItem1", "ammo_railgun" );
-
-			if(level.checkSystem[5] == true)//Level 10 Brawler Talent
+/*
+			if(level.checkSystem[4] == true)//Level 5 Brawler Talent
 				spawnArgs.Set( "def_dropsItem1", "item_health_mega" );
-
-			if(level.checkSystem[2] == true)//Level 10 Demolition Talent
+*/
+			if(level.checkSystem[1] == true)//Level 5 Demolition Talent
 				spawnArgs.Set( "def_dropsItem1", "item_armor_small" );
 
 		}else if( rVal < 39 ){ //less then 45 drop item
@@ -3721,7 +3716,7 @@ void idAI::OnDeath( void ){
 			
 		}else if( rVal < 45 ){ //less then 45 drop item
 			
-			if(sharpshooter.GetFloat() == 1)
+			if(brawler.GetFloat() == 1)
 				spawnArgs.Set( "def_dropsItem1", "moveable_item_lightninggun" );
 
 			if(demolition.GetFloat() == 1)
